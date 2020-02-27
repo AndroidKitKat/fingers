@@ -10,6 +10,7 @@
 import math
 import numpy
 import cv2
+import multiprocessing
 
 # TODO
 # Description will be added soon.
@@ -63,7 +64,7 @@ def __compare(minutiae_1, minutiae_2, dist_threshold, angle_threshold):
 def _compute_matches(minutiae_1_points, minutiae_1_angles, minutiae_1_types,
                      minutiae_2_points, minutiae_2_angles, minutiae_2_types,
                      x_scale, y_scale, rotation, translation_overlay_rate, translation_step,
-                     dist_threshold, angle_threshold):
+                     dist_threshold, angle_threshold, return_dict):
     # scales the second set of minutiae according to <x_scale> and <y_scale>
     scale_matrix = numpy.zeros((3, 3), dtype=numpy.float32)
     scale_matrix[0, 0] = x_scale
@@ -163,6 +164,11 @@ def _compute_matches(minutiae_1_points, minutiae_1_angles, minutiae_1_types,
                 best_matches = matches
 
     # returns the best set of matches
+
+    print('[INFO] Hough transform at', str([x_scale, y_scale, rotation]) + ':', len(best_matches), 'matches.')
+
+    return_dict[rotation] = best_matches
+
     return best_matches
 
 
@@ -293,22 +299,41 @@ def _01_hough_transform(ridge_endings_1, ridge_bifurcations_1, ridge_endings_2, 
     best_config = None
 
     # for each Hough configuration...
+
+    match_jobs = []
+    return_dict = multiprocessing.Manager().dict()
+
     for x_scale in scale_range:
         for y_scale in scale_range:
             for rotation in rotation_range:
-                matches = _compute_matches(minutiae_1_points, minutiae_1_angles, minutiae_1_types,
+                p = multiprocessing.Process(target=_compute_matches, args=(minutiae_1_points, minutiae_1_angles, minutiae_1_types,
                                            minutiae_2_points, minutiae_2_angles, minutiae_2_types,
                                            x_scale, y_scale, rotation, translation_overlay_rate, translation_step,
-                                           dist_threshold, angle_threshold)
+                                           dist_threshold, angle_threshold, return_dict))
+                match_jobs.append(p)
+                p.start()
+                # matches = _compute_matches(minutiae_1_points, minutiae_1_angles, minutiae_1_types,
+                #                            minutiae_2_points, minutiae_2_angles, minutiae_2_types,
+                #                            x_scale, y_scale, rotation, translation_overlay_rate, translation_step,
+                #                            dist_threshold, angle_threshold)
 
-                print('[INFO] Hough transform at', str([x_scale, y_scale, rotation]) + ':', len(matches), 'matches.')
+                # print('[INFO] Hough transform at', str([x_scale, y_scale, rotation]) + ':', len(matches), 'matches.')
 
                 # if it is the best configuration so far, stores it
-                if len(best_matches) < len(matches):
-                    best_matches = matches
-                    best_config = [x_scale, y_scale, rotation]
+                # if len(best_matches) < len(matches):
+                #     best_matches = matches
+                #     best_config = [x_scale, y_scale, rotation]
 
     # found the best matches up here
+    for job in match_jobs:
+        job.join()
+    best = 0
+    best_config = 0
+    for key, val in return_dict.items():
+        if len(val) > best:
+            best = len(val)
+            best_config = key
+
     print('[INFO] Best Hough with:', len(best_matches), 'matches, at:', str(best_config) + '.')
 
     # returns the matches separated in ridge endings and bifurcations

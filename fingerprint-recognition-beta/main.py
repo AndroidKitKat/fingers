@@ -12,10 +12,25 @@ import d_match
 from pprint import pprint
 from os import walk
 import json
+import sys
 
 # Test script.
 # TODO: Better description will be added soon.
 
+def usage():
+    print(f'''{sys.argv[0]}: [name_finger] [finger_file]''')
+    exit(1)
+
+
+id_print = None
+
+if len(sys.argv) == 3:
+    id_print = sys.argv[1]
+    finger_file = sys.argv[2]
+else:
+    usage()
+
+print(finger_file)
 root_file = 'test-data/fingerprint_dc/'
 fingerprints = []
 
@@ -28,18 +43,21 @@ f = open(data_file, 'r')
 d = json.loads(f.read())
 new_dict = {}
 for k, v in d.items():
-    new_dict[int(k)] = v
+    a_acquire.FINGER_DICT[int(k)] = v
 f.close()
 
 fd = open(key_file, 'r')
 d1 = json.loads(fd.read())
 id_dict = {}
 for k, v in d1.items():
-    id_dict[int(k)] = v[0]
+    id_dict[v[0]] = int(k)
 fd.close()
 
 pprint(id_dict)
 print('loaded dataset')
+print(id_dict[id_print])
+
+a_acquire.verify_fingerprint(id_dict[id_print], finger_file)
 
 # super_secret_dict = {}
 # reverse_dict = {}
@@ -90,7 +108,11 @@ print('loaded dataset')
 # pprint(pp_fingerprints)
 # pprint(minutia)
 
-matches = d_match.match(new_dict[0][0][0], new_dict[0][0][1], new_dict[0][0][2], new_dict[0][1][0], new_dict[0][1][1], new_dict[0][1][2], view=True)
+# matches = d_match.match(new_dict[1][0][0], new_dict[1][0][1], new_dict[1][0][2], new_dict[1][1][0], new_dict[1][1][1], new_dict[1][1][2], view=False)
+
+# print(len(matches[0]))
+# print(len(matches[1]))
+# pprint(matches)
 
 # matches = d_match.match(a_acquire.FINGER_DICT[3][0][0], a_acquire.FINGER_DICT[3][0][1], a_acquire.FINGER_DICT[3][0][2], a_acquire.FINGER_DICT[3][1][0], a_acquire.FINGER_DICT[3][1][1], a_acquire.FINGER_DICT[3][1][2], view=True)
 # matches = d_match.match(en_fingerprint_1, ridge_endings_1, bifurcations_1,

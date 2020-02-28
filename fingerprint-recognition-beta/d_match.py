@@ -334,7 +334,7 @@ def _01_hough_transform(ridge_endings_1, ridge_bifurcations_1, ridge_endings_2, 
             best_matches = val
             best_config = key
 
-    print('[INFO] Best Hough with:', len(best), 'matches, at:', str(best_config) + '.')
+    print('[INFO] Best Hough with:', len(best_matches), 'matches, at:', str(best_config) + '.')
 
     # returns the matches separated in ridge endings and bifurcations
     ridge_ending_matches = []

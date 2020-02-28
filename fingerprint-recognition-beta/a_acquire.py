@@ -15,6 +15,7 @@ from c_describe import describe
 from collections import OrderedDict
 import multiprocessing
 import itertools
+from statistics import mean
 
 FINGER_DICT = {}
 

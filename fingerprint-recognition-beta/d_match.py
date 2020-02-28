@@ -11,6 +11,7 @@ import math
 import numpy
 import cv2
 import multiprocessing
+from pprint import pprint
 
 # TODO
 # Description will be added soon.
@@ -327,14 +328,13 @@ def _01_hough_transform(ridge_endings_1, ridge_bifurcations_1, ridge_endings_2, 
     # found the best matches up here
     for job in match_jobs:
         job.join()
-    best = 0
     best_config = 0
     for key, val in return_dict.items():
-        if len(val) > best:
-            best = len(val)
+        if len(val) > len(best_matches):
+            best_matches = val
             best_config = key
 
-    print('[INFO] Best Hough with:', len(best_matches), 'matches, at:', str(best_config) + '.')
+    print('[INFO] Best Hough with:', len(best), 'matches, at:', str(best_config) + '.')
 
     # returns the matches separated in ridge endings and bifurcations
     ridge_ending_matches = []

@@ -13,11 +13,26 @@ from d_match import match
 from b_enhance import enhance
 from c_describe import describe
 from collections import OrderedDict
-import multiprocessing
+import multiprocessing.pool
 import itertools
 from statistics import mean
 
 FINGER_DICT = {}
+
+# maybe this?
+
+# class NoDaemonProcess(multiprocessing.Process):
+#     @property
+#     def daemon(self):
+#         return False
+    
+#     @daemon.setter
+#     def daemon(self, value):
+#         pass
+
+# class NoDaemonContext(type(multiprocessing.get_context())):
+#     Process = NoDaemonProcess
+
 
 # 3. Verification scenario (loading of fingerprint + ID, to verify claimed identity); or
 def verify_fingerprint(id, filename):
@@ -25,8 +40,8 @@ def verify_fingerprint(id, filename):
     pp_test = enhance(test_print, dark_ridges=False, view=False)
     ridges, bifs = describe(pp_test[1], pp_test[2], view=False)
     # use 3 cores for the three sets of fingerprints
-    # p = multiprocessing.Pool(3)
-    # matches = p.starmap(match, [(pp_test[1], ridges, bifs, FINGER_DICT[id][0][0], FINGER_DICT[id][0][1], FINGER_DICT[id][0][2]), (pp_test[1], ridges, bifs, FINGER_DICT[id][1][0], FINGER_DICT[id][1][1], FINGER_DICT[id][1][2]), (pp_test[1], ridges, bifs, FINGER_DICT[id][2][0], FINGER_DICT[id][2][1], FINGER_DICT[id][2][2])])
+    p = multiprocessing.pool.ThreadPool(3)
+    matches = p.starmap(match, [(pp_test[1], ridges, bifs, FINGER_DICT[id][0][0], FINGER_DICT[id][0][1], FINGER_DICT[id][0][2]), (pp_test[1], ridges, bifs, FINGER_DICT[id][1][0], FINGER_DICT[id][1][1], FINGER_DICT[id][1][2]), (pp_test[1], ridges, bifs, FINGER_DICT[id][2][0], FINGER_DICT[id][2][1], FINGER_DICT[id][2][2])])
 
     # subsmash = functools.partial(smash, hashset, LENGTH-half, ALPHABET)
     #     codes = itertools.chain.from_iterable(pool.imap(subsmash, (PREFIX + x for x in permutations(half,ALPHABET))))
@@ -34,9 +49,9 @@ def verify_fingerprint(id, filename):
     #     codes = smash(hashset,LENGTH,ALPHABET,PREFIX)
     
 
-    matches_1 = match(pp_test[1], ridges, bifs, FINGER_DICT[id][0][0], FINGER_DICT[id][0][1], FINGER_DICT[id][0][2])
-    matches_2 = match(pp_test[1], ridges, bifs, FINGER_DICT[id][1][0], FINGER_DICT[id][1][1], FINGER_DICT[id][1][2])
-    matches_3 = match(pp_test[1], ridges, bifs, FINGER_DICT[id][2][0], FINGER_DICT[id][2][1], FINGER_DICT[id][2][2])
+    # matches_1 = match(pp_test[1], ridges, bifs, FINGER_DICT[id][0][0], FINGER_DICT[id][0][1], FINGER_DICT[id][0][2])
+    # matches_2 = match(pp_test[1], ridges, bifs, FINGER_DICT[id][1][0], FINGER_DICT[id][1][1], FINGER_DICT[id][1][2])
+    # matches_3 = match(pp_test[1], ridges, bifs, FINGER_DICT[id][2][0], FINGER_DICT[id][2][1], FINGER_DICT[id][2][2])
 
     # todo get the information to calculate our shiz
 

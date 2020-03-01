@@ -62,19 +62,19 @@ def verify_fingerprint(id, filename):
     # print(len(matches[0][0] + matches[0][1]))
     # print(len(matches[1][0] + matches[1][1]))
     # print(len(matches[2][0] + matches[2][1]))
-    print(len(matches_1[0] + matches_1[1]))
-    print(len(matches_2[0] + matches_2[1]))
-    print(len(matches_3[0] + matches_3[1]))
+    print(len(matches[0][0] + matches[0][1]))
+    print(len(matches[1][0] + matches[1][1]))
+    print(len(matches[2][0] + matches[2][1]))
 
-    m_1 = len(matches_1[0] + matches_1[1])
-    m_2 = len(matches_2[0] + matches_2[1])
-    m_3 = len(matches_3[0] + matches_3[1])
+    m_1 = len(matches[0][0] + matches[0][1])
+    m_2 = len(matches[1][0] + matches[1][1])
+    m_3 = len(matches[2][0] + matches[2][1])
 
     # m_1 = len(matches[0][0] + matches[0][1])
     # m_2 = len(matches[1][0] + matches[1][1])
     # m_3 = len(matches[2][0] + matches[2][1])
 
-    if mean(m_1, m_2, m_3) > 20 and max(m_1, m_2, m_3) > 30:
+    if mean([m_1, m_2, m_3]) > 20 and max(m_1, m_2, m_3) > 30:
         print("\n\n*hacker voice* I'm in\n\n")
         return True
     else:

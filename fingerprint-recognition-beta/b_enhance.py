@@ -97,7 +97,7 @@ def _01_preprocess(fingerprint, output_height, dark_ridges=True, view=False):
         cv2.imshow('Preprocessing, press any key.', fingerprint)
         cv2.waitKey(0)
 
-    print('[INFO] Preprocessed fingerprint.')
+#    print('[INFO] Preprocessed fingerprint.')
     return fingerprint
 
 
@@ -146,7 +146,7 @@ def _02_segment(fingerprint, block_size, std_threshold, view=False):
         cv2.waitKey(0)
 
     # returns the normalized fingerprint and obtained mask
-    print('[INFO] Segmented fingerprint.')
+#    print('[INFO] Segmented fingerprint.')
     return fingerprint, mask
 
 
@@ -230,7 +230,7 @@ def _03_compute_orientations(fingerprint, mask, block_size, view=False):
         cv2.waitKey(0)
 
     # return orientations and magnitudes
-    print('[INFO] Computed ridge orientations.')
+#    print('[INFO] Computed ridge orientations.')
     return discret_orientations, magnitudes
 
 
@@ -283,7 +283,7 @@ def _04_compute_ridge_frequency(fingerprint, mask, orientations, block_size, vie
                 frequencies.append(0.5 * ridge_count / len(ridge_peaks))
 
     # returns the average frequency
-    print('[INFO] Computed ridge frequency.')
+#    print('[INFO] Computed ridge frequency.')
     if len(frequencies) > 0:
         return numpy.mean(frequencies)
     else:
@@ -322,7 +322,7 @@ def _05_apply_gabor_filter(fingerprint, mask, orientations, ridge_frequency, std
         cv2.imshow('Filtering, press any key.', output)
         cv2.waitKey(0)
 
-    print('[INFO] Applied Gabor filters.')
+ #   print('[INFO] Applied Gabor filters.')
     return output
 
 
@@ -335,7 +335,7 @@ def _06_skeletonize(fingerprint, view=False):
         cv2.imshow('Skeletonization, press any key.', fingerprint)
         cv2.waitKey(0)
 
-    print('[INFO] Skeletonized ridges.')
+#    print('[INFO] Skeletonized ridges.')
     return fingerprint
 
 
@@ -369,5 +369,5 @@ def enhance(fingerprint, dark_ridges=True, view=False):
     # skeletonizes the fingerprint
     en_fingerprint = _06_skeletonize(en_fingerprint, view=view)
 
-    print('[INFO] Enhanced fingerprint.')
+#    print('[INFO] Enhanced fingerprint.')
     return pp_fingerprint, en_fingerprint, mask

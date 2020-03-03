@@ -1,0 +1,21 @@
+jphilippe_rm test-data/fingerprint_dc/james_lm/james_lm00.bmp 3
+jianingli_rl test-data/fingerprint_dc/james_lm/james_lm00.bmp 5
+23
+22
+16
+Laurence_rl test-data/fingerprint_dc/james_lm/james_lm00.bmp 7
+13
+12
+18
+pedro_li test-data/fingerprint_dc/james_lm/james_lm00.bmp 10
+11
+11
+21
+juan_rm test-data/fingerprint_dc/james_lm/james_lm00.bmp 15
+12
+12
+11
+jianingli_rl test-data/fingerprint_dc/james_lm/james_lm00.bmp 20
+23
+17
+13

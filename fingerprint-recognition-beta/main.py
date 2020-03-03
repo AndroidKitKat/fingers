@@ -13,6 +13,7 @@ from pprint import pprint
 from os import walk
 import json
 import sys
+from random import randint
 
 # Test script.
 # TODO: Better description will be added soon.
@@ -31,7 +32,6 @@ if len(sys.argv) == 4:
 else:
     usage()
 
-print(finger_file)
 root_file = 'test-data/fingerprint_dc/'
 fingerprints = []
 
@@ -48,12 +48,18 @@ f.close()
 fd = open(key_file, 'r')
 d1 = json.loads(fd.read())
 id_dict = {}
+lookup_dict = {}
 for k, v in d1.items():
     id_dict[v[0]] = int(k)
+    lookup_dict[int(k)] = v[0]
 fd.close()
 
-pprint(id_dict)
-print('loaded dataset')
-print(id_dict[id_print])
+rand_id = randint(0, 132)
+
+print(id_print, finger_file, variable)
+
+# pprint(id_dict)
+# print('loaded dataset')
+# print(id_dict[id_print])
 
 a_acquire.verify_fingerprint(id_dict[id_print], finger_file, variable)

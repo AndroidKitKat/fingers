@@ -36,10 +36,10 @@ def verify_fingerprint(id, filename, variable):
     m_3 = len(matches[2][0] + matches[2][1])
 
     if mean([m_1, m_2, m_3]) > 20 and max(m_1, m_2, m_3) > 30:
-        print("\n\n*hacker voice* I'm in\n\n")
+#        print("\n\n*hacker voice* I'm in\n\n")
         return True
     else:
-        print("\n\nINTRUDER DETECTED\n\n")
+#        print("\n\nINTRUDER DETECTED\n\n")
         return False
     
 # Stub function to acquire a fingerprint sample from a file, given its path.
@@ -56,7 +56,7 @@ def acquire_from_file(file_path, view=False):
         cv2.imshow('press any key', fingerprint)
         cv2.waitKey(0)
 
-    print('[INFO] Acquired fingerprint from file.')
+#    print('[INFO] Acquired fingerprint from file.')
     return fingerprint
 
     # show the read fingerprint if it is valid

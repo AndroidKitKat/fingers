@@ -1,0 +1,24 @@
+james_lm test-data/fingerprint_dc/james_lm/james_lm00.bmp 10
+49
+47
+137
+james_lm test-data/fingerprint_dc/james_lm/james_lm00.bmp 15
+39
+46
+136
+james_lm test-data/fingerprint_dc/james_lm/james_lm00.bmp 20
+42
+45
+137
+james_lm test-data/fingerprint_dc/james_lm/james_lm00.bmp 25
+43
+41
+126
+james_lm test-data/fingerprint_dc/james_lm/james_lm00.bmp 30
+36
+37
+116
+james_lm test-data/fingerprint_dc/james_lm/james_lm00.bmp 35
+30
+32
+103

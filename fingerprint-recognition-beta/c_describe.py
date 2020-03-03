@@ -150,7 +150,7 @@ def _01_detect_minutiae(fingerprint, mask, block_size, view=False):
     if view:
         __draw_minutiae(fingerprint, ridge_endings, ridge_bifurcations, 'All')
 
-#    print('[INFO] Detected minutiae.')
+    print('[INFO] Detected minutiae.')
     return ridge_endings, ridge_bifurcations
 
 
@@ -270,7 +270,7 @@ def _02_remove_false_positive_minutiae(fingerprint, mask, ridge_endings, ridge_b
     if view:
         __draw_minutiae(fingerprint, ridge_endings, ridge_bifurcations, 'Cleaned')
 
-#    print('[INFO] Removed bad-quality minutiae.')
+    print('[INFO] Removed bad-quality minutiae.')
     return ridge_endings, ridge_bifurcations
 
 

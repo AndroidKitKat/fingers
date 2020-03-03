@@ -276,13 +276,8 @@ def _02_remove_false_positive_minutiae(fingerprint, mask, ridge_endings, ridge_b
 
 # TODO
 # Description will be added soon.
-def describe(enhanced_fingerprint, mask, variable, view=False):
+def describe(enhanced_fingerprint, mask, view=False):
     # detects minutiae over the given fingerprint
-
-    #MINUT_ORIENT_BLOCK_SIZE = variable
-    MIN_MINUTIAE_DIST = variable
-    #MIN_RIDGE_LENGTH = variable
-    #MIN_MINUT_MASK_DIST = variable
 
     ridge_endings, bifurcations = _01_detect_minutiae(enhanced_fingerprint, mask, MINUT_ORIENT_BLOCK_SIZE, view=view)
 

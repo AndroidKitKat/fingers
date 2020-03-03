@@ -13,7 +13,6 @@ from pprint import pprint
 from os import walk
 import json
 import sys
-from random import randint
 
 # Test script.
 # TODO: Better description will be added soon.
@@ -25,10 +24,9 @@ def usage():
 
 id_print = None
 
-if len(sys.argv) == 4:
+if len(sys.argv) == 3:
     id_print = sys.argv[1]
     finger_file = sys.argv[2]
-    variable = int(sys.argv[3])
 else:
     usage()
 
@@ -54,12 +52,10 @@ for k, v in d1.items():
     lookup_dict[int(k)] = v[0]
 fd.close()
 
-rand_id = randint(0, 132)
-
-print(id_print, finger_file, variable)
+print(id_print, finger_file)
 
 # pprint(id_dict)
 # print('loaded dataset')
 # print(id_dict[id_print])
 
-a_acquire.verify_fingerprint(id_dict[id_print], finger_file, variable)
+a_acquire.verify_fingerprint(id_dict[id_print], finger_file)

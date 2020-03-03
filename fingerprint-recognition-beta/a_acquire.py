@@ -20,10 +20,10 @@ from statistics import mean
 FINGER_DICT = {}
 
 # 3. Verification scenario (loading of fingerprint + ID, to verify claimed identity); or
-def verify_fingerprint(id, filename, variable):
+def verify_fingerprint(id, filename):
     test_print = acquire_from_file(filename, view=False)
     pp_test = enhance(test_print, dark_ridges=False, view=False)
-    ridges, bifs = describe(pp_test[1], pp_test[2], variable, view=False)
+    ridges, bifs = describe(pp_test[1], pp_test[2], view=False)
     # use 3 cores for the three sets of fingerprints
     p = multiprocessing.pool.ThreadPool(3)
     matches = p.starmap(match, [(pp_test[1], ridges, bifs, FINGER_DICT[id][0][0], FINGER_DICT[id][0][1], FINGER_DICT[id][0][2]), (pp_test[1], ridges, bifs, FINGER_DICT[id][1][0], FINGER_DICT[id][1][1], FINGER_DICT[id][1][2]), (pp_test[1], ridges, bifs, FINGER_DICT[id][2][0], FINGER_DICT[id][2][1], FINGER_DICT[id][2][2])])
